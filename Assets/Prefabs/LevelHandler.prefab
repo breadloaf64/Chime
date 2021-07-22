@@ -1,0 +1,77 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8237494117557615529
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8237494117557615526}
+  - component: {fileID: 8237494117557615527}
+  m_Layer: 0
+  m_Name: LevelHandler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8237494117557615526
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8237494117557615529}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8237494117557615527
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8237494117557615529}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1a9f920362044844b18ceeac903a8c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BlockParent: {fileID: 0}
+  KeyBlockMap:
+  - key: 85
+    BlockObject: {fileID: 1296199492614631475, guid: 0d11437af55d9474490765cfc7c48298,
+      type: 3}
+  - key: 49
+    BlockObject: {fileID: 598692396128591950, guid: fb92c7f4cea4caf4b9c2a1dc57bc411c,
+      type: 3}
+  - key: 50
+    BlockObject: {fileID: 1451958888123049222, guid: 7bcbc5dec6461f140a53820eace1ed9c,
+      type: 3}
+  - key: 51
+    BlockObject: {fileID: 1296199492614631475, guid: 37900159f3dde664c9edc3caaf114acb,
+      type: 3}
+  - key: 84
+    BlockObject: {fileID: 5165958200266971676, guid: 87530ea8a87b3174d91b6a7c2f06e650,
+      type: 3}
+  - key: 116
+    BlockObject: {fileID: 7013631433816013022, guid: b6c0904a921842b45ac0c48506287ad9,
+      type: 3}
+  - key: 83
+    BlockObject: {fileID: 8441452772720687372, guid: cd28187c4c5cb6d4c88a735ed90d9c0b,
+      type: 3}
+  - key: 82
+    BlockObject: {fileID: 878858699335779363, guid: f0e4f8ba2f288ce49a6318bb85617223,
+      type: 3}
+  - key: 66
+    BlockObject: {fileID: 878858699335779363, guid: 9b93fb54f2aa11f44ac7f88ce2e788cf,
+      type: 3}
+  - key: 71
+    BlockObject: {fileID: 2328244347928448474, guid: 340545aad8124a840aef2c1eb33042c5,
+      type: 3}
