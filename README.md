@@ -1,4 +1,4 @@
-# Chime
+![Chime title graphic](https://github.com/breadloaf64/Chime/blob/master/ReadMeImages/Title.PNG?raw=true)
 
 <p>
 A cute little breakout-inspired game made in Unity!
