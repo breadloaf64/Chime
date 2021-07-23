@@ -14,10 +14,14 @@ public class SessionController : MonoBehaviour
         else DontDestroyOnLoad(gameObject);
     }
 
-    public LevelObject GetLevel() {return level;}
+    public LevelObject GetLevel() {
+        Debug.Log("SessionController getlevel: " + level.genString);
+        return level;
+    }
 
     public void SetLevel(LevelObject level) {
         this.level = level.DeepCopy();
+        Debug.Log("SessionController level is now " + this.level.genString);
     }
 
     public string GetLevelName() { return string.Copy(levelName); }

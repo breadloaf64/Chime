@@ -45,14 +45,21 @@ public class LevelObject {
     }
 
     public LevelObject DeepCopy() {
-        LevelObject copy = new LevelObject();
+        //LevelObject copy = new LevelObject();
 
-        copy.launcherPosition = new Vector2(this.launcherPosition.x, this.launcherPosition.y);
-        copy.genString = string.Copy(this.genString);
-        copy.levelText = string.Copy(this.levelText);
-        copy.themeIndex = this.themeIndex;
+        //copy.launcherPosition = new Vector2(this.launcherPosition.x, this.launcherPosition.y);
+        //copy.genString = string.Copy(this.genString);
+        //copy.levelText = string.Copy(this.levelText);
+        //copy.themeIndex = this.themeIndex;
 
-        return copy;
+        //return copy;
+
+        return new LevelObject {
+            launcherPosition = new Vector2(this.launcherPosition.x, this.launcherPosition.y),
+            genString = string.Copy(this.genString),
+            levelText = this.levelText,
+            themeIndex = this.themeIndex
+        };
 
         /*
         return new LevelObject {

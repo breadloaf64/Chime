@@ -144,6 +144,7 @@ public class LevelEditor : MonoBehaviour
                 MakeBlock('3');
             }
             else if (keyName.Equals("Return")) {
+                Debug.Log("set level has gentring: " + level.genString);
                 sc.SetLevel(level);
                 sc.SetLevelName(infieldLevelName.text);
                 sl.LoadScene("Level");
