@@ -33,7 +33,6 @@ public class LevelHandler : MonoBehaviour {
     void Start() {
         SessionController sc = FindObjectOfType<SessionController>();
         if (sc != null) {
-            Debug.Log("sc found, pulling level");
             LoadLevel(sc.GetLevel());
         }
         else {
