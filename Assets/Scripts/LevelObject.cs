@@ -57,8 +57,6 @@ public class LevelObject {
         };
     }
 
-
-
     public static string RandomGenString() {
         int w = 16;
         int h = 12;

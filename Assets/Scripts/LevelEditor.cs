@@ -53,7 +53,7 @@ public class LevelEditor : MonoBehaviour
         string genString = l.genString;
         string standardised = "";
         for (int i = 0; i < genString.Length; i++) {
-            if (lh.isValidType(genString[i])) {
+            if (lh.IsValidType(genString[i])) {
                 standardised += genString[i];
             }
         }
@@ -71,7 +71,7 @@ public class LevelEditor : MonoBehaviour
 
     void SetDisableEdits() {
         disableEdits = pd.GetState();
-        //check for warning box
+        // if pulldown is down, then  don't allow user to add blocks to level
     }
 
     void MoveSelection() {
@@ -130,7 +130,7 @@ public class LevelEditor : MonoBehaviour
             }
         }
         else if (!shift && !ctrl && !disableEdits) {
-            if (keyName.Length == 1 && lh.isValidType(keyName[0])) {
+            if (keyName.Length == 1 && lh.IsValidType(keyName[0])) {
                 MakeBlock(keyName[0]);
             }
             else if (keyName.Equals("Alpha1")) {
@@ -144,7 +144,6 @@ public class LevelEditor : MonoBehaviour
             }
             else if (keyName.Equals("Return")) {
                 sc.SetLevel(level);
-                sc.SetLevelName(infieldLevelName.text);
                 sl.LoadScene("Level");
             }
             else if (keyName.Equals("L")) {
@@ -162,7 +161,6 @@ public class LevelEditor : MonoBehaviour
     public void Save() {
         string name = infieldLevelName.text;
         LevelSaveLoad.Save(level, name);
-
 
         //Level saved popup
         Debug.Log("Level Saved!");
@@ -198,7 +196,7 @@ public class LevelEditor : MonoBehaviour
 
     void HandleMousePress() {
         if (!EventSystem.current.IsPointerOverGameObject()) { // don't make blocks if pressing pullDown button
-            if (lh.isValidType(brushType)) {
+            if (lh.IsValidType(brushType)) {
                 MakeBlock(brushType);
             }
             else if (brushType == 'L') {

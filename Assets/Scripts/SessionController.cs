@@ -3,19 +3,20 @@ using UnityEngine.SceneManagement;
 
 public class SessionController : MonoBehaviour
 {
-    LevelObject level = LevelObject.DefaultLevel();
+    private LevelObject level;
     string sceneBefore; //name of previous scene (so that when you're in a level, you return to the scene by which you entered the level)
 
-
     private void Awake() {
+        level = LevelObject.DefaultLevel();
         int SessionControllerCount = FindObjectsOfType<SessionController>().Length; //Implement singleton
         if (SessionControllerCount > 1) Destroy(gameObject);
         else DontDestroyOnLoad(gameObject);
+        Debug.Log("sc setting default level");
     }
 
     public LevelObject GetLevel() {
         Debug.Log("get level: " + level.genString);
-        return level;
+        return level.DeepCopy();
     }
 
     public void SetLevel(LevelObject level) {
@@ -29,7 +30,8 @@ public class SessionController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape)) {
             LoadPreviousScene();
         }
-        else if (Input.GetKeyDown(KeyCode.R) && SceneManager.GetActiveScene().name != "LevelEditor") {
+        //press r to reload the current scene, basically a restart button
+        else if (Input.GetKeyDown(KeyCode.R) && SceneManager.GetActiveScene().name != "LevelEditor") { 
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
