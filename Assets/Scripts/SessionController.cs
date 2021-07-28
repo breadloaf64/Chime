@@ -4,7 +4,6 @@ using UnityEngine.SceneManagement;
 public class SessionController : MonoBehaviour
 {
     LevelObject level = LevelObject.DefaultLevel();
-    string levelName = "default";
     string sceneBefore; //name of previous scene (so that when you're in a level, you return to the scene by which you entered the level)
 
 
@@ -15,25 +14,18 @@ public class SessionController : MonoBehaviour
     }
 
     public LevelObject GetLevel() {
-        Debug.Log("SessionController getlevel: " + level.genString);
+        Debug.Log("get level: " + level.genString);
         return level;
     }
 
     public void SetLevel(LevelObject level) {
         this.level = level.DeepCopy();
-        Debug.Log("SessionController level is now " + this.level.genString);
-    }
-
-    public string GetLevelName() { return string.Copy(levelName); }
-
-    public void SetLevelName(string name) {
-        this.levelName = string.Copy(name);
+        Debug.Log("set level: " + level.genString);
     }
 
     // Update is called once per frame
     void Update()
     {
-        //Debug.Log(sceneBefore);
         if (Input.GetKeyDown(KeyCode.Escape)) {
             LoadPreviousScene();
         }
@@ -48,9 +40,7 @@ public class SessionController : MonoBehaviour
     }
 
     public void SetSceneBefore(string scene) {
-        //Debug.Log("Setting sceneBefore to " + scene);
         sceneBefore = string.Copy(scene);
-        //Debug.Log("Scenebefore is now " + sceneBefore);
     }
 
     public string GetSceneBefore() {

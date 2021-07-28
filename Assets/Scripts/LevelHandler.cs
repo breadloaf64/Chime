@@ -19,7 +19,6 @@ public class LevelHandler : MonoBehaviour {
     static int w = 16, h = 12;
 
     private void Awake() {
-        Debug.Log("levelHandler awake");
         createBlockLookup();
     }
     
@@ -39,7 +38,6 @@ public class LevelHandler : MonoBehaviour {
         else {
             LoadLevel(LevelObject.DefaultLevel());
         }
-        //Debug.Log("level: " + sc.GetLevel().);
     }
 
     public void LoadLevel(LevelObject level) {
