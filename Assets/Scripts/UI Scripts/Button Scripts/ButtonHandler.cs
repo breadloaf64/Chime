@@ -7,11 +7,4 @@ abstract public class BtnHandler : MonoBehaviour
 
     abstract public void HandlePush(); 
 
-    protected SessionController GetSessionController() {
-        return FindObjectOfType<SessionController>();
-    }
-
-    protected SessionController GetSessionControllerComponent() {
-        return FindObjectOfType<SessionController>();
-    }
 }

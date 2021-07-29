@@ -3,26 +3,29 @@ using UnityEngine.SceneManagement;
 
 public class SessionController : MonoBehaviour
 {
-    private LevelObject level;
+    private LevelObject level = LevelObject.DefaultLevel();
     string sceneBefore; //name of previous scene (so that when you're in a level, you return to the scene by which you entered the level)
-    int counter = 0;
+
+    // These are here to facilitate singleton. _instance privately holds the reference to the singleton instance
+    private static SessionController _instance;
+    // Instance publically returns the reference to the single instance
+    public static SessionController Instance { get { return _instance; } }
 
     private void Awake() {
-        level = LevelObject.DefaultLevel();
-        int SessionControllerCount = FindObjectsOfType<SessionController>().Length; //Implement singleton
-        if (SessionControllerCount > 1) Destroy(gameObject);
-        else DontDestroyOnLoad(gameObject);
+        if (_instance != null && _instance != this) {
+            Destroy(this.gameObject);
+        }
+        else {
+            _instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
     }
 
     public LevelObject GetLevel() {
-        counter++;
-        Debug.Log("get | counter: " + counter + " | scene: " + SceneManager.GetActiveScene().name);
         return this.level.DeepCopy();
     }
 
     public void SetLevel(LevelObject level) {
-        counter++;
-        Debug.Log("set | counter: " + counter + " | scene: " + SceneManager.GetActiveScene().name);
         this.level = level.DeepCopy();
     }
 

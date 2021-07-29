@@ -9,7 +9,7 @@ public class ButtonHandler_FromCode : BtnHandler {
         string levelJSON = input.text;
         try {
             LevelObject level = JsonUtility.FromJson<LevelObject>(levelJSON);
-            GetSessionController().SetLevel(level);
+            SessionController.Instance.SetLevel(level);
             FindObjectOfType<SceneLoader>().LoadScene("Level");
         }
         catch {

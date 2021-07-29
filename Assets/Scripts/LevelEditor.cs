@@ -28,7 +28,7 @@ public class LevelEditor : MonoBehaviour
     Vector2 selectionPosition;
 
     private void Awake() {
-        sc = FindObjectOfType<SessionController>();
+        sc = SessionController.Instance;
         lh = FindObjectOfType<LevelHandler>();
         sl = FindObjectOfType<SceneLoader>();
         pd = FindObjectOfType<PullDown>();

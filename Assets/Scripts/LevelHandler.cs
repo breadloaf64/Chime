@@ -31,7 +31,8 @@ public class LevelHandler : MonoBehaviour {
 
     // Start is called before the first frame update
     void Start() {
-        SessionController sc = FindObjectOfType<SessionController>();
+        SessionController sc = SessionController.Instance;
+
         if (sc != null) {
             LoadLevel(sc.GetLevel());
         }

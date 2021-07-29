@@ -11,7 +11,7 @@ public class SceneLoader : MonoBehaviour
     float transitionTime = 0.5f;
 
     private void Awake() {
-        sc = FindObjectOfType<SessionController>();
+        sc = SessionController.Instance;
     }
 
     public string GetCurrentScene() {
