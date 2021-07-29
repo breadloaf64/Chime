@@ -5,7 +5,7 @@ using UnityEngine;
 public class ButtonHandler_FromFile : BtnHandler {
     public override void HandlePush() {
         string level = FindObjectOfType<UserLevelPanel>().SelectedLevel();
-        GetSessionController().SetLevel(LevelSaveLoad.LoadUserLevel(level));
+        SessionController.Instance.SetLevel(LevelSaveLoad.LoadUserLevel(level));
     }
 
     public void DeleteLevel() {

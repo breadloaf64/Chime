@@ -3,41 +3,40 @@ using UnityEngine.SceneManagement;
 
 public class SessionController : MonoBehaviour
 {
-    LevelObject level = LevelObject.DefaultLevel();
-    string levelName = "default";
+    private LevelObject level = LevelObject.DefaultLevel();
     string sceneBefore; //name of previous scene (so that when you're in a level, you return to the scene by which you entered the level)
 
+    // These are here to facilitate singleton. _instance privately holds the reference to the singleton instance
+    private static SessionController _instance;
+    // Instance publically returns the reference to the single instance
+    public static SessionController Instance { get { return _instance; } }
 
     private void Awake() {
-        int SessionControllerCount = FindObjectsOfType<SessionController>().Length; //Implement singleton
-        if (SessionControllerCount > 1) Destroy(gameObject);
-        else DontDestroyOnLoad(gameObject);
+        if (_instance != null && _instance != this) {
+            Destroy(this.gameObject);
+        }
+        else {
+            _instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
     }
 
     public LevelObject GetLevel() {
-        Debug.Log("SessionController getlevel: " + level.genString);
-        return level;
+        return this.level.DeepCopy();
     }
 
     public void SetLevel(LevelObject level) {
         this.level = level.DeepCopy();
-        Debug.Log("SessionController level is now " + this.level.genString);
-    }
-
-    public string GetLevelName() { return string.Copy(levelName); }
-
-    public void SetLevelName(string name) {
-        this.levelName = string.Copy(name);
     }
 
     // Update is called once per frame
     void Update()
     {
-        //Debug.Log(sceneBefore);
         if (Input.GetKeyDown(KeyCode.Escape)) {
             LoadPreviousScene();
         }
-        else if (Input.GetKeyDown(KeyCode.R) && SceneManager.GetActiveScene().name != "LevelEditor") {
+        //press r to reload the current scene, basically a restart button
+        else if (Input.GetKeyDown(KeyCode.R) && SceneManager.GetActiveScene().name != "LevelEditor") { 
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
@@ -48,9 +47,7 @@ public class SessionController : MonoBehaviour
     }
 
     public void SetSceneBefore(string scene) {
-        //Debug.Log("Setting sceneBefore to " + scene);
         sceneBefore = string.Copy(scene);
-        //Debug.Log("Scenebefore is now " + sceneBefore);
     }
 
     public string GetSceneBefore() {

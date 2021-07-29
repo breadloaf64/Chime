@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class LevelObject {
+    public string name;
     public Vector2 launcherPosition;
     public string genString;
     public string levelText;
@@ -12,6 +13,7 @@ public class LevelObject {
 
     public static LevelObject DefaultLevel() {
         return new LevelObject {
+            name = "defaultLevel",
             launcherPosition = new Vector2(8f, 0.5f),
             genString = EmptyGenString(),
             levelText = "",
@@ -33,6 +35,7 @@ public class LevelObject {
         string _genString = RandomGenString();
 
         return new LevelObject {
+            name = "random",
             launcherPosition = _launcherPosition,
             genString = _genString,
             levelText = "",
@@ -45,33 +48,14 @@ public class LevelObject {
     }
 
     public LevelObject DeepCopy() {
-        //LevelObject copy = new LevelObject();
-
-        //copy.launcherPosition = new Vector2(this.launcherPosition.x, this.launcherPosition.y);
-        //copy.genString = string.Copy(this.genString);
-        //copy.levelText = string.Copy(this.levelText);
-        //copy.themeIndex = this.themeIndex;
-
-        //return copy;
-
         return new LevelObject {
+            name = string.Copy(this.name),
             launcherPosition = new Vector2(this.launcherPosition.x, this.launcherPosition.y),
             genString = string.Copy(this.genString),
             levelText = this.levelText,
             themeIndex = this.themeIndex
         };
-
-        /*
-        return new LevelObject {
-            launcherPosition = new Vector2(this.launcherPosition.x, this.launcherPosition.y),
-            genString = string.Copy(this.genString),
-            backCol1 = new Color(this.backCol1.r, this.backCol1.g, this.backCol1.b, this.backCol1.a),
-            backCol2 = new Color(this.backCol2.r, this.backCol2.g, this.backCol2.b, this.backCol2.a)
-        };
-        */
     }
-
-
 
     public static string RandomGenString() {
         int w = 16;

@@ -19,11 +19,10 @@ public class LevelHandler : MonoBehaviour {
     static int w = 16, h = 12;
 
     private void Awake() {
-        Debug.Log("levelHandler awake");
-        createBlockLookup();
+        CreateBlockLookup();
     }
     
-    void createBlockLookup() {
+    void CreateBlockLookup() {
         BlockLookup = new Dictionary<char, GameObject>();
         foreach (KeyBlock keyblock in KeyBlockMap) {
             BlockLookup.Add(keyblock.key, keyblock.BlockObject);
@@ -32,24 +31,24 @@ public class LevelHandler : MonoBehaviour {
 
     // Start is called before the first frame update
     void Start() {
-        SessionController sc = FindObjectOfType<SessionController>();
+        SessionController sc = SessionController.Instance;
+
         if (sc != null) {
             LoadLevel(sc.GetLevel());
         }
         else {
             LoadLevel(LevelObject.DefaultLevel());
         }
-        //Debug.Log("level: " + sc.GetLevel().);
     }
 
     public void LoadLevel(LevelObject level) {
-        clearAllBlocks();
+        ClearAllBlocks();
         launcher.transform.position = level.launcherPosition; //set launcher position
         int themeIndex = level.themeIndex;
         Theme theme = Theme.getTheme(themeIndex);
         GameObject.Find("Back_1").GetComponent<SpriteRenderer>().color = theme.backCol1;
         GameObject.Find("Back_2").GetComponent<SpriteRenderer>().color = theme.backCol2;
-        makeBlocksFromGenString(removeInvalidChars(level.genString));
+        MakeBlocksFromGenString(RemoveInvalidChars(level.genString));
 
         //level text
         GameObject levelText = GameObject.Find("txtLevelText");
@@ -58,16 +57,16 @@ public class LevelHandler : MonoBehaviour {
         }
     }
 
-    void clearAllBlocks() {
+    void ClearAllBlocks() {
         foreach (Transform block in BlockParent.transform) {
             Destroy(block.gameObject);
         }
     }
 
-    string removeInvalidChars(string original) {
+    string RemoveInvalidChars(string original) {
         string removed = "";
         for (int i = 0; i < original.Length; i++) {
-            if (isValidType(original[i])) {
+            if (IsValidType(original[i])) {
                 removed += original[i];
             }
             else {
@@ -77,12 +76,12 @@ public class LevelHandler : MonoBehaviour {
         return removed;
     }
 
-    public bool isValidType(char c) {
+    public bool IsValidType(char c) {
         return c == '0' || BlockLookup.ContainsKey(c);
     }
 
-    void makeBlocksFromGenString(string genString) { //This assumes that the Genstring is valid
-        genString = removeInvalidChars(genString);
+    void MakeBlocksFromGenString(string genString) { //This assumes that the Genstring is valid
+        genString = RemoveInvalidChars(genString);
         char blockType;
         int x, y;
         Vector2 pos;

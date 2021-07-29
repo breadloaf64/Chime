@@ -4,6 +4,6 @@ using UnityEngine;
 
 public class ButtonHandler_EditorNew : BtnHandler {
     public override void HandlePush() {
-        GetSessionController().SetLevel(LevelObject.DefaultLevel()); ;
+        SessionController.Instance.SetLevel(LevelObject.DefaultLevel()); ;
     }
 }

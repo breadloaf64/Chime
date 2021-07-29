@@ -4,6 +4,6 @@ using UnityEngine;
 
 public class ButtonHandler_FromRandom : BtnHandler {
     public override void HandlePush() {
-        GetSessionController().SetLevel(LevelObject.RandomLevel());
+        SessionController.Instance.SetLevel(LevelObject.RandomLevel());
     }
 }
