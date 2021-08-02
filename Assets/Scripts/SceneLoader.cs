@@ -10,7 +10,7 @@ public class SceneLoader : MonoBehaviour
     [SerializeField] Animator transition;
     float transitionTime = 0.5f;
 
-    private void Awake() {
+    private void Start() {
         sc = SessionController.Instance;
     }
 

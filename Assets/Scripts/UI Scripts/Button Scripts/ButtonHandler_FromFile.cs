@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class ButtonHandler_FromFile : BtnHandler {
     public override void HandlePush() {
-        string level = FindObjectOfType<UserLevelPanel>().SelectedLevel();
-        SessionController.Instance.SetLevel(LevelSaveLoad.LoadUserLevel(level));
+        string levelName = FindObjectOfType<UserLevelPanel>().SelectedLevel();
+        SessionController.Instance.SetLevel(LevelSaveLoad.LoadUserLevel(levelName));
     }
 
     public void DeleteLevel() {

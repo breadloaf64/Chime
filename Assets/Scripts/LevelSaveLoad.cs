@@ -13,7 +13,7 @@ public class LevelSaveLoad : MonoBehaviour
         CheckDirectory(userLevelsFolder);
         string levelJSON = JsonUtility.ToJson(level);
         File.WriteAllText(userLevelsFolder + levelName + extension, levelJSON);
-        Debug.Log("LevelSaveLoad: Level written to file :D");
+        Debug.Log("LevelSaveLoad: Writing level to file :D");
     }
 
     private static void CheckDirectory(string directory) { //if directory doesn't exist, create one
@@ -24,7 +24,7 @@ public class LevelSaveLoad : MonoBehaviour
 
     public static LevelObject LoadUserLevel(string levelName) {
         if (File.Exists(userLevelsFolder + levelName + extension)) {
-            Debug.Log("LevelSaveLoad: Loaded level with name \"" + levelName + "\"");
+            Debug.Log("LevelSaveLoad: Loading level with name \"" + levelName + "\"");
             string levelJSON = File.ReadAllText(userLevelsFolder + levelName + extension);
             LevelObject level = JsonUtility.FromJson<LevelObject>(levelJSON);
             return level;
