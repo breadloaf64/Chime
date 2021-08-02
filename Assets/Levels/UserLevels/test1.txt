@@ -1,9 +1,0 @@
-{"width":16,"height":12,"launcherPosition":{"x":8.0,"y":0.5,"z":0.0},"genString":"
-RRRRRRRRRRRRRRRR
-BBBBBBBBBBBBBBBB
-RRRRRRRRRRRRRRRR
-0000000000000000
-U0102030T0t0S0G0
-0000000000000000
-0000000000000000
-","backCol1":{"r":191.0,"g":232.0,"b":255.0,"a":1.0},"backCol2":{"r":255.0,"g":255.0,"b":255.0,"a":1.0}}

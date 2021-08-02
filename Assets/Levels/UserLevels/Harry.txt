@@ -1,1 +1,0 @@
-{"width":16,"height":12,"launcherPosition":{"x":11.0,"y":0.5},"genString":"302010","backCol1":{"r":255.0,"g":0.0,"b":255.0,"a":1.0},"backCol2":{"r":255.0,"g":255.0,"b":255.0,"a":1.0}}
