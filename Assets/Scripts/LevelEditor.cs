@@ -224,6 +224,11 @@ public class LevelEditor : MonoBehaviour
         level.levelText = levelText;
     }
 
+    public void UpdateLevelName() {
+        string name = infieldLevelName.text;
+        level.name = name;
+    }
+
     void MakeBlock(char type) {
         string replaced = ReplaceAt(level.genString, TargetIndex(), type);
         if (level.genString != replaced) {
