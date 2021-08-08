@@ -38,10 +38,15 @@ public class LevelEditor : MonoBehaviour
     {
         if (sc != null) {
             level = sc.GetLevel();
+            Debug.Log("setting levelname text to " + level.name);
+            Debug.Log("setting leveltext text to " + level.levelText);
+            infieldLevelName.text = level.name;
+            infieldLevelText.text = level.levelText;
         }
         else {
             level = LevelObject.DefaultLevel();
             infieldLevelName.text = "DefaultLevel";
+            Debug.Log("loading default level");
         }
         StandardiseGenString(level);
         history = new LevelHistory();
