@@ -11,6 +11,7 @@ public class Ball : MonoBehaviour
     bool gravityOn;
     [SerializeField] float gravityScale = 1;
     [SerializeField] float drag = 1f;
+    CameraShake cs;
 
     private void Awake() {
         rb = GetComponent<Rigidbody2D>();
@@ -20,7 +21,10 @@ public class Ball : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        cs = FindObjectOfType<CameraShake>();
+        if(cs == null) {
+            Debug.Log("no camera shake found");
+        }
     }
 
     // Update is called once per frame
@@ -43,6 +47,7 @@ public class Ball : MonoBehaviour
         if (!collision.gameObject.name.Equals("BottomCollider")) {
             int soundIndex = Random.Range(0, sounds.Length);
             audiosource.PlayOneShot(sounds[soundIndex]);
+            cs.AddShake(1);
         }
     }
 
