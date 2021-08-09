@@ -96,4 +96,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1110759ea16540408ac244918b58ce1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damping: 0.1
+  period: 2
+  damping: 0.5
+  strength: 0.01
+  maxMagnitude: 0.1
