@@ -191,6 +191,7 @@ public class LevelEditor : MonoBehaviour
     public void CopyLevelToClipboard() {
         string levelJSON = JsonUtility.ToJson(level);
         GUIUtility.systemCopyBuffer = levelJSON;
+        Debug.Log("Copied level JSON to clipboard");
     }
 
     void MoveLauncher() {
