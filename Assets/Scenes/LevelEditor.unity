@@ -1573,7 +1573,11 @@ PrefabInstance:
       objectReference: {fileID: 584897924}
     - target: {fileID: 2501834744245703304, guid: 594edf9492cbe7148aecda599bbaf233, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Save
+      value: CopyLevelToClipboard
+      objectReference: {fileID: 0}
+    - target: {fileID: 2501834744245703304, guid: 594edf9492cbe7148aecda599bbaf233, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: LevelEditor, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 2501834744245703304, guid: 594edf9492cbe7148aecda599bbaf233, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
