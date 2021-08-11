@@ -188,6 +188,11 @@ public class LevelEditor : MonoBehaviour
         }
     }
 
+    public void CopyLevelToClipboard() {
+        string levelJSON = JsonUtility.ToJson(level);
+        GUIUtility.systemCopyBuffer = levelJSON;
+    }
+
     void MoveLauncher() {
         Vector2 newPosition = SnapToGridVertical(MousePositionConstrained());
         if (!level.launcherPosition.Equals(newPosition)) {
