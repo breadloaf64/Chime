@@ -24,7 +24,6 @@ public class UserLevelPanel : MonoBehaviour
                 if (file.Name.Split('.').Length == 2) {
                     levelName = file.Name.Split('.')[0];
                     levelList.Add(levelName);
-                    //Debug.Log(levelName);
                 }
             }
             index = 0;

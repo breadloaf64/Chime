@@ -12,6 +12,6 @@ public class ButtonHandler_FromFile : BtnHandler {
         UserLevelPanel ulp = FindObjectOfType<UserLevelPanel>();
         string level = ulp.SelectedLevel();
         LevelSaveLoad.DeleteUserLevel(level);
-        ulp.Initialise();
+        ulp.nextIndex();
     }
 }
