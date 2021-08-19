@@ -80,4 +80,12 @@ public class UserLevelPanel : MonoBehaviour
     public string SelectedLevel() {
         return (string)levelList[index];
     }
+
+    public void RemoveSelectedLevel() {
+        if (index >= 0) {
+            levelList.Remove(SelectedLevel());
+            constrainIndex();
+            UpdatePanel();
+        }
+    }
 }
