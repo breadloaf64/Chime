@@ -164,9 +164,10 @@ public class LevelEditor : MonoBehaviour
     }
 
     public void TrySaveLevel() {
+
         if (ValidateLevel()) {
 
-            if (LevelNameExists()) {
+            if (LevelSaveLoad.LevelExists(infieldLevelName.text)) {
                 StartCoroutine(OverwriteLevelConfirmation());
             }
             else {
@@ -178,10 +179,6 @@ public class LevelEditor : MonoBehaviour
 
     private bool ValidateLevel() {
         return (level.name.Length > 0);
-    }
-
-    private bool LevelNameExists() {
-        return true;
     }
 
     private IEnumerator OverwriteLevelConfirmation() {
