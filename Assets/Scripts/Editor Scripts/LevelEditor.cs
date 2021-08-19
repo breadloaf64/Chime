@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using System.Collections;
 
 public class LevelEditor : MonoBehaviour
 {
@@ -115,7 +116,7 @@ public class LevelEditor : MonoBehaviour
         if (ctrl && !shift) { //ctrl shortcuts
             if (Input.anyKeyDown) {
                 if (key == KeyCode.S) {
-                    Save();
+                    TrySaveLevel();
                 }
                 else if (key == KeyCode.Z) {
                     Undo();
@@ -162,7 +163,47 @@ public class LevelEditor : MonoBehaviour
         }
     }
 
-    public void Save() {
+    public void TrySaveLevel() {
+        if (ValidateLevel()) {
+
+            if (LevelNameExists()) {
+                StartCoroutine(OverwriteLevelConfirmation());
+            }
+            else {
+                SaveLevel();
+            }
+
+        }
+    }
+
+    private bool ValidateLevel() {
+        return true;
+    }
+
+    private bool LevelNameExists() {
+        return true;
+    }
+
+    private IEnumerator OverwriteLevelConfirmation() {
+        string name = infieldLevelName.text;
+
+        Dialog_Confirmation dialog = FindObjectOfType<Dialog_Confirmation>();
+        dialog.Show("Are you sure you want to \n overwrite " + name + "?");
+        Debug.Log("Showing Dialog");
+
+        while (dialog.result == Dialog_Confirmation.Result.None) {
+            yield return null; // wait
+        }
+
+        if (dialog.result == Dialog_Confirmation.Result.Yes) {
+            SaveLevel();
+        }
+        else if (dialog.result == Dialog_Confirmation.Result.No) {
+            // do nothing
+        }
+    }
+
+    private void SaveLevel() {
         string name = infieldLevelName.text;
         LevelSaveLoad.Save(level, name);
 
