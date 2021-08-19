@@ -177,7 +177,7 @@ public class LevelEditor : MonoBehaviour
     }
 
     private bool ValidateLevel() {
-        return true;
+        return (level.name.Length > 0);
     }
 
     private bool LevelNameExists() {
