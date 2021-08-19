@@ -3310,6 +3310,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab260c233c1b24a4cbc568b2583b1c3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  levelPanel: {fileID: 22494559}
 --- !u!114 &1685225448
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3329,8 +3330,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1685225447}
         m_TargetAssemblyTypeName: ButtonHandler_FromFile, Assembly-CSharp
-        m_MethodName: LoadEditorFromUserLevelPanel
-        m_Mode: 1
+        m_MethodName: SetLevelAndLoadScene
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -3352,7 +3353,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2647849352149053790, guid: b85f4588088194847a3230c02f9f2a43, type: 3}
       propertyPath: ButtonFunctions.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2647849352149053790, guid: b85f4588088194847a3230c02f9f2a43, type: 3}
       propertyPath: ButtonFunctions.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -3364,11 +3365,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2647849352149053790, guid: b85f4588088194847a3230c02f9f2a43, type: 3}
       propertyPath: ButtonFunctions.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: HandlePush
+      value: SetLevelAndLoadScene
       objectReference: {fileID: 0}
     - target: {fileID: 2647849352149053790, guid: b85f4588088194847a3230c02f9f2a43, type: 3}
       propertyPath: ButtonFunctions.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: ButtonHandler_FromCode, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2647849352149053790, guid: b85f4588088194847a3230c02f9f2a43, type: 3}
+      propertyPath: ButtonFunctions.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: LevelEditor
       objectReference: {fileID: 0}
     - target: {fileID: 2647849352149053790, guid: b85f4588088194847a3230c02f9f2a43, type: 3}
       propertyPath: ButtonFunctions.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -3456,7 +3461,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   input: {fileID: 1294866699}
-  sceneToLoad: levelEditor
 --- !u!1001 &1750718542
 PrefabInstance:
   m_ObjectHideFlags: 0
