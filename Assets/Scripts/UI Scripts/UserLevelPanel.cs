@@ -34,7 +34,7 @@ public class UserLevelPanel : MonoBehaviour
     }
 
     private void Start() {
-        UpdatePanel();
+        UpdatePanelText();
     }
 
     private void PlayChangeSound() {
@@ -46,7 +46,7 @@ public class UserLevelPanel : MonoBehaviour
             index++;
             constrainIndex();
         }
-        UpdatePanel();
+        UpdatePanelText();
         PlayChangeSound();
     }
 
@@ -55,12 +55,15 @@ public class UserLevelPanel : MonoBehaviour
             index--;
             constrainIndex();
         }
-        UpdatePanel();
+        UpdatePanelText();
         PlayChangeSound();
     }
 
     public void constrainIndex() {
-        if (index >= levelList.Count) {
+        if (levelList.Count == 0) {
+            index = -1;
+        }
+        else if (index >= levelList.Count) {
             index = 0;
         }
         else if (index < 0) {
@@ -68,12 +71,12 @@ public class UserLevelPanel : MonoBehaviour
         }
     }
 
-    private void UpdatePanel() {
+    private void UpdatePanelText() {
         if (index >= 0) {
             panelText.text = (string)levelList[index];
         }
         else {
-            panelText.text = "No saved levels";
+            panelText.text = "No levels";
         }
     }
 
@@ -90,7 +93,11 @@ public class UserLevelPanel : MonoBehaviour
         if (index >= 0) {
             levelList.Remove(SelectedLevel());
             constrainIndex();
-            UpdatePanel();
+            UpdatePanelText();
         }
+    }
+
+    public bool LevelIsSelected() {
+        return (index >= 0);
     }
 }

@@ -3,9 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ButtonHandler_FromFile : BtnHandler {
+
     public override void HandlePush() {
-        string levelName = FindObjectOfType<UserLevelPanel>().SelectedLevel();
-        SessionController.Instance.SetLevel(LevelSaveLoad.LoadUserLevel(levelName));
+        throw new System.NotImplementedException();
+    }
+    public void LoadEditorFromUserLevelPanel() {
+        UserLevelPanel ulp = FindObjectOfType<UserLevelPanel>();
+        if (ulp.LevelIsSelected()) {
+            string levelName = ulp.SelectedLevel();
+            SessionController.Instance.SetLevel(LevelSaveLoad.LoadUserLevel(levelName));
+            FindObjectOfType<SceneLoader>().LoadScene("LevelEditor");
+        }
     }
 
     public void DeleteLevel() {
@@ -16,8 +24,9 @@ public class ButtonHandler_FromFile : BtnHandler {
     }
 
     public void TriggerDeleteLevelWithConfirmation() {
-        StartCoroutine(DeleteLevelWithConfirmation());
-
+        if (FindObjectOfType<UserLevelPanel>().LevelIsSelected()) {
+            StartCoroutine(DeleteLevelWithConfirmation());
+        }
     }
 
     public IEnumerator DeleteLevelWithConfirmation() {
@@ -33,12 +42,10 @@ public class ButtonHandler_FromFile : BtnHandler {
 
         if (dialog.result == Dialog_Confirmation.Result.Yes) {
             LevelSaveLoad.DeleteUserLevel(level);
-            ulp.nextIndex();
-            Debug.Log("result was yes");
+            ulp.RemoveSelectedLevel();
         }
         else if (dialog.result == Dialog_Confirmation.Result.No) {
             // do nothing
-            Debug.Log("result was No");
         }
     }
 }
