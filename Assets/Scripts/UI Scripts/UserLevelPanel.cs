@@ -78,7 +78,12 @@ public class UserLevelPanel : MonoBehaviour
     }
 
     public string SelectedLevel() {
-        return (string)levelList[index];
+        if (index >= 0) {
+            return (string)levelList[index];
+        }
+        else {
+            return "";
+        }
     }
 
     public void RemoveSelectedLevel() {
