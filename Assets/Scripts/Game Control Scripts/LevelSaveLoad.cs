@@ -23,7 +23,7 @@ public class LevelSaveLoad : MonoBehaviour
     }
 
     public static LevelObject LoadUserLevel(string levelName) {
-        if (File.Exists(userLevelsFolder + levelName + extension)) {
+        if (LevelExists(levelName)) {
             Debug.Log("LevelSaveLoad: Loading level with name \"" + levelName + "\"");
             string levelJSON = File.ReadAllText(userLevelsFolder + levelName + extension);
             LevelObject level = JsonUtility.FromJson<LevelObject>(levelJSON);
@@ -42,12 +42,16 @@ public class LevelSaveLoad : MonoBehaviour
     }
 
     static public void DeleteUserLevel(string levelName) {
-        if (File.Exists(userLevelsFolder + levelName + extension)) {
+        if (LevelExists(levelName)) {
             Debug.Log("LevelSaveLoad: Deleted level with name \"" + levelName + "\"");
             File.Delete(userLevelsFolder + levelName + extension);
         }
         else {
             Debug.LogError("LevelSaveLoad: No level found with name \"" + levelName + "\"");
         }
+    }
+
+    static public bool LevelExists(string levelName) {
+        return File.Exists(userLevelsFolder + levelName + extension);
     }
 }
