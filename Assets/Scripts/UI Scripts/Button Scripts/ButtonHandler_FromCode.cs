@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class ButtonHandler_FromCode : BtnHandler {
+public class ButtonHandler_FromCode : MonoBehaviour {
 
     [SerializeField] InputField input;
     [SerializeField] string sceneToLoad = "level";
     
-    public override void HandlePush() {
+    public void SetLevelAndLoadScene() {
         string levelJSON = input.text;
         try {
             LevelObject level = JsonUtility.FromJson<LevelObject>(levelJSON);

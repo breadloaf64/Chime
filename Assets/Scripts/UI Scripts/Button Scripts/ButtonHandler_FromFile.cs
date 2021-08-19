@@ -2,11 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ButtonHandler_FromFile : BtnHandler {
+public class ButtonHandler_FromFile : MonoBehaviour {
 
-    public override void HandlePush() {
-        throw new System.NotImplementedException();
-    }
     public void SetLevelAndLoadScene(string sceneName) {
         UserLevelPanel ulp = FindObjectOfType<UserLevelPanel>();
         if (ulp.LevelIsSelected()) {
