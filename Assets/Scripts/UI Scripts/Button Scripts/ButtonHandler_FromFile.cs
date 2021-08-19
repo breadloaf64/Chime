@@ -34,7 +34,7 @@ public class ButtonHandler_FromFile : BtnHandler {
         string level = ulp.SelectedLevel();
 
         Dialog_Confirmation dialog = FindObjectOfType<Dialog_Confirmation>();
-        dialog.Show("Are you sure you want to delete " + level + "?");
+        dialog.Show("Are you sure you want to \n delete " + level + "?");
 
         while (dialog.result == Dialog_Confirmation.Result.None) {
             yield return null; // wait
