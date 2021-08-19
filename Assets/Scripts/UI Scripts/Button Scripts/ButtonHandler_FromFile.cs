@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class ButtonHandler_FromFile : MonoBehaviour {
 
-    public void SetLevelAndLoadScene(string sceneName) {
+    public void SetLevelAndLoadScene(string sceneToLoad) {
         UserLevelPanel ulp = FindObjectOfType<UserLevelPanel>();
         if (ulp.LevelIsSelected()) {
             string levelName = ulp.SelectedLevel();
             SessionController.Instance.SetLevel(LevelSaveLoad.LoadUserLevel(levelName));
-            FindObjectOfType<SceneLoader>().LoadScene(sceneName);
+            FindObjectOfType<SceneLoader>().LoadScene(sceneToLoad);
         }
     }
 

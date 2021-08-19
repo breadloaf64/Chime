@@ -4,9 +4,8 @@ using UnityEngine.UI;
 public class ButtonHandler_FromCode : MonoBehaviour {
 
     [SerializeField] InputField input;
-    [SerializeField] string sceneToLoad = "level";
     
-    public void SetLevelAndLoadScene() {
+    public void SetLevelAndLoadScene(string sceneToLoad) {
         string levelJSON = input.text;
         try {
             LevelObject level = JsonUtility.FromJson<LevelObject>(levelJSON);
