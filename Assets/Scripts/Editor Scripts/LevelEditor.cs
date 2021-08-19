@@ -7,6 +7,7 @@ public class LevelEditor : MonoBehaviour
     [SerializeField] GameObject selectionBox;
     [SerializeField] Camera myCamera;
     [SerializeField] InputField infieldLevelName;
+    [SerializeField] int maxLevelNameSize = 11;
     [SerializeField] InputField infieldLevelText;
 
     //External references
@@ -230,6 +231,14 @@ public class LevelEditor : MonoBehaviour
 
     public void UpdateLevelName() {
         string name = infieldLevelName.text;
+
+        // Truncate level name if needed [to fit in text box]
+        if (name.Length > maxLevelNameSize) {
+            name = name.Substring(0, maxLevelNameSize);
+        }
+
+        // set values
+        infieldLevelName.text = name;
         level.name = name;
     }
 
