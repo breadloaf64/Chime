@@ -7,12 +7,12 @@ public class ButtonHandler_FromFile : BtnHandler {
     public override void HandlePush() {
         throw new System.NotImplementedException();
     }
-    public void LoadEditorFromUserLevelPanel() {
+    public void SetLevelAndLoadScene(string sceneName) {
         UserLevelPanel ulp = FindObjectOfType<UserLevelPanel>();
         if (ulp.LevelIsSelected()) {
             string levelName = ulp.SelectedLevel();
             SessionController.Instance.SetLevel(LevelSaveLoad.LoadUserLevel(levelName));
-            FindObjectOfType<SceneLoader>().LoadScene("LevelEditor");
+            FindObjectOfType<SceneLoader>().LoadScene(sceneName);
         }
     }
 
