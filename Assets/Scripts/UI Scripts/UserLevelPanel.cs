@@ -24,7 +24,6 @@ public class UserLevelPanel : MonoBehaviour
                 if (file.Name.Split('.').Length == 2) {
                     levelName = file.Name.Split('.')[0];
                     levelList.Add(levelName);
-                    //Debug.Log(levelName);
                 }
             }
             index = 0;
@@ -35,7 +34,7 @@ public class UserLevelPanel : MonoBehaviour
     }
 
     private void Start() {
-        UpdatePanel();
+        UpdatePanelText();
     }
 
     private void PlayChangeSound() {
@@ -47,7 +46,7 @@ public class UserLevelPanel : MonoBehaviour
             index++;
             constrainIndex();
         }
-        UpdatePanel();
+        UpdatePanelText();
         PlayChangeSound();
     }
 
@@ -56,12 +55,15 @@ public class UserLevelPanel : MonoBehaviour
             index--;
             constrainIndex();
         }
-        UpdatePanel();
+        UpdatePanelText();
         PlayChangeSound();
     }
 
     public void constrainIndex() {
-        if (index >= levelList.Count) {
+        if (levelList.Count == 0) {
+            index = -1;
+        }
+        else if (index >= levelList.Count) {
             index = 0;
         }
         else if (index < 0) {
@@ -69,16 +71,33 @@ public class UserLevelPanel : MonoBehaviour
         }
     }
 
-    private void UpdatePanel() {
+    private void UpdatePanelText() {
         if (index >= 0) {
             panelText.text = (string)levelList[index];
         }
         else {
-            panelText.text = "No saved levels";
+            panelText.text = "No levels";
         }
     }
 
     public string SelectedLevel() {
-        return (string)levelList[index];
+        if (index >= 0) {
+            return (string)levelList[index];
+        }
+        else {
+            return "";
+        }
+    }
+
+    public void RemoveSelectedLevel() {
+        if (index >= 0) {
+            levelList.Remove(SelectedLevel());
+            constrainIndex();
+            UpdatePanelText();
+        }
+    }
+
+    public bool LevelIsSelected() {
+        return (index >= 0);
     }
 }
