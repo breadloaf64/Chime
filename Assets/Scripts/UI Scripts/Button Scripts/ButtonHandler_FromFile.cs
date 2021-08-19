@@ -4,20 +4,20 @@ using UnityEngine;
 
 public class ButtonHandler_FromFile : MonoBehaviour {
 
+    [SerializeField] UserLevelPanel levelPanel;
+
     public void SetLevelAndLoadScene(string sceneToLoad) {
-        UserLevelPanel ulp = FindObjectOfType<UserLevelPanel>();
-        if (ulp.LevelIsSelected()) {
-            string levelName = ulp.SelectedLevel();
+        if (levelPanel.LevelIsSelected()) {
+            string levelName = levelPanel.SelectedLevel();
             SessionController.Instance.SetLevel(LevelSaveLoad.LoadUserLevel(levelName));
             FindObjectOfType<SceneLoader>().LoadScene(sceneToLoad);
         }
     }
 
     public void DeleteLevel() {
-        UserLevelPanel ulp = FindObjectOfType<UserLevelPanel>();
-        string level = ulp.SelectedLevel();
+        string level = levelPanel.SelectedLevel();
         LevelSaveLoad.DeleteUserLevel(level);
-        ulp.nextIndex();
+        levelPanel.nextIndex();
     }
 
     public void TriggerDeleteLevelWithConfirmation() {
@@ -27,8 +27,7 @@ public class ButtonHandler_FromFile : MonoBehaviour {
     }
 
     public IEnumerator DeleteLevelWithConfirmation() {
-        UserLevelPanel ulp = FindObjectOfType<UserLevelPanel>();
-        string level = ulp.SelectedLevel();
+        string level = levelPanel.SelectedLevel();
 
         Dialog_Confirmation dialog = FindObjectOfType<Dialog_Confirmation>();
         dialog.Show("Are you sure you want to \n delete " + level + "?");
@@ -39,7 +38,7 @@ public class ButtonHandler_FromFile : MonoBehaviour {
 
         if (dialog.result == Dialog_Confirmation.Result.Yes) {
             LevelSaveLoad.DeleteUserLevel(level);
-            ulp.RemoveSelectedLevel();
+            levelPanel.RemoveSelectedLevel();
         }
         else if (dialog.result == Dialog_Confirmation.Result.No) {
             // do nothing

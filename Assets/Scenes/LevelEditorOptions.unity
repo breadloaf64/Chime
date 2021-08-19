@@ -3310,6 +3310,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab260c233c1b24a4cbc568b2583b1c3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  levelPanel: {fileID: 22494559}
 --- !u!114 &1685225448
 MonoBehaviour:
   m_ObjectHideFlags: 0
