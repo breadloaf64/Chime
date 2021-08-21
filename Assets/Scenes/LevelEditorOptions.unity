@@ -4260,7 +4260,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2093078763}
   m_Enabled: 1
-  m_Alpha: 1
+  m_Alpha: 0
   m_Interactable: 0
   m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 1
@@ -4277,7 +4277,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   txt: {fileID: 991378835}
-  FadeAnimator: {fileID: 0}
+  FadeAnimator: {fileID: 2093078767}
 --- !u!95 &2093078767
 Animator:
   serializedVersion: 3
