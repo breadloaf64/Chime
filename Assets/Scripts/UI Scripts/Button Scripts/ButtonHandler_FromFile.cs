@@ -12,6 +12,9 @@ public class ButtonHandler_FromFile : MonoBehaviour {
             SessionController.Instance.SetLevel(LevelSaveLoad.LoadUserLevel(levelName));
             FindObjectOfType<SceneLoader>().LoadScene(sceneToLoad);
         }
+        else {
+            ShowPopupText("You have no saved levels");
+        }
     }
 
     public void DeleteLevel() {
