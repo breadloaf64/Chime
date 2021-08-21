@@ -14,8 +14,15 @@ public class ButtonHandler_FromCode : MonoBehaviour {
             sl.LoadScene(sceneToLoad); 
         }
         catch {
-            FindObjectOfType<PopupText>().Show("Invalid Level Code");
-            Debug.Log("The code was not valid");
+            TryShowPopup("Invalid Level Code");
+            Debug.Log("Invalid Level Code");
+        }
+    }
+
+    private void TryShowPopup(string message) {
+        PopupText pt = FindObjectOfType<PopupText>();
+        if (pt != null) {
+            pt.Show(message);
         }
     }
 }
