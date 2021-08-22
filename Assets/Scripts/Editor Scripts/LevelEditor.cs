@@ -15,6 +15,7 @@ public class LevelEditor : MonoBehaviour
     LevelHandler lh;
     SceneLoader sl;
     PullDown pd;
+    PopupText pt;
 
     // Input variables
     bool shift = false;
@@ -33,6 +34,7 @@ public class LevelEditor : MonoBehaviour
         lh = FindObjectOfType<LevelHandler>();
         sl = FindObjectOfType<SceneLoader>();
         pd = FindObjectOfType<PullDown>();
+        pt = FindObjectOfType<PopupText>();
     }
 
     void Start()
@@ -166,7 +168,7 @@ public class LevelEditor : MonoBehaviour
         string name = infieldLevelName.text;
         LevelSaveLoad.Save(level, name);
 
-        //Level saved popup
+        pt.Show(name + " saved");
         Debug.Log("Level Saved!");
     }
 
@@ -186,13 +188,15 @@ public class LevelEditor : MonoBehaviour
             level.genString = newGenString;
             lh.LoadLevel(level);
             history.Add(level);
+            pt.Show("Level cleared");
         }
     }
 
     public void CopyLevelToClipboard() {
         string levelJSON = JsonUtility.ToJson(level);
         GUIUtility.systemCopyBuffer = levelJSON;
-        Debug.Log("Copied level JSON to clipboard");
+        pt.Show("Copied level text");
+        Debug.Log("Copied level JSON text to clipboard");
     }
 
     void MoveLauncher() {
