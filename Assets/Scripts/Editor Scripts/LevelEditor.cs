@@ -42,13 +42,15 @@ public class LevelEditor : MonoBehaviour
     {
         if (sc != null) {
             level = sc.GetLevel();
-            infieldLevelName.text = level.name;
+            if (level.name != "defaultLevel") {
+                infieldLevelName.text = level.name;
+            }
             infieldLevelText.text = level.levelText;
         }
         else {
             level = LevelObject.DefaultLevel();
-            infieldLevelName.text = "DefaultLevel";
-            Debug.Log("LevelEditor: No sceneloader found. loading default level");
+            infieldLevelName.text = "";
+            Debug.Log("LevelEditor: No SessionController found. loading default level");
         }
         StandardiseGenString(level);
         history = new LevelHistory();
