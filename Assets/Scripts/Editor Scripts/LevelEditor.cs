@@ -166,10 +166,16 @@ public class LevelEditor : MonoBehaviour
 
     public void Save() {
         string name = infieldLevelName.text;
-        LevelSaveLoad.Save(level, name);
 
-        pt.Show(name + " saved");
-        Debug.Log("Level Saved!");
+        if (name.Equals("")) {
+            pt.Show("Please name your level");
+            Debug.Log("LevelEditor | couldn't save level - has no name"); 
+        }
+        else {
+            LevelSaveLoad.Save(level, name);
+            pt.Show(name + " saved");
+            Debug.Log("Level Saved!");
+        }
     }
 
     public void Undo() {
@@ -195,7 +201,7 @@ public class LevelEditor : MonoBehaviour
     public void CopyLevelToClipboard() {
         string levelJSON = JsonUtility.ToJson(level);
         GUIUtility.systemCopyBuffer = levelJSON;
-        pt.Show("Copied level text");
+        pt.Show("Copied " + level.name + " to clipboard");
         Debug.Log("Copied level JSON text to clipboard");
     }
 
