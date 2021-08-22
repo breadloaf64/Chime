@@ -12,6 +12,9 @@ public class ButtonHandler_FromFile : MonoBehaviour {
             SessionController.Instance.SetLevel(LevelSaveLoad.LoadUserLevel(levelName));
             FindObjectOfType<SceneLoader>().LoadScene(sceneToLoad);
         }
+        else {
+            ShowPopupText("You have no saved levels");
+        }
     }
 
     public void DeleteLevel() {
@@ -23,6 +26,9 @@ public class ButtonHandler_FromFile : MonoBehaviour {
     public void TriggerDeleteLevelWithConfirmation() {
         if (FindObjectOfType<UserLevelPanel>().LevelIsSelected()) {
             StartCoroutine(DeleteLevelWithConfirmation());
+        }
+        else {
+            ShowPopupText("You have no saved levels");
         }
     }
 
@@ -39,9 +45,20 @@ public class ButtonHandler_FromFile : MonoBehaviour {
         if (dialog.result == Dialog_Confirmation.Result.Yes) {
             LevelSaveLoad.DeleteUserLevel(level);
             levelPanel.RemoveSelectedLevel();
+            ShowPopupText(level + " was deleted");
         }
         else if (dialog.result == Dialog_Confirmation.Result.No) {
             // do nothing
+        }
+    }
+
+    private void ShowPopupText(string message) {
+        PopupText pt = FindObjectOfType<PopupText>();
+        if (pt != null) {
+            pt.Show(message);
+        }
+        else {
+            Debug.LogWarning("No popup text object.");
         }
     }
 }
