@@ -29,6 +29,7 @@ public class LevelEditor : MonoBehaviour
     LevelHistory history;
     char brushType = '1';
     Vector2 selectionPosition;
+    bool changedSinceSave = false;
 
     private void Awake() {
         sc = SessionController.Instance;
@@ -214,6 +215,7 @@ public class LevelEditor : MonoBehaviour
         else {
             LevelSaveLoad.Save(level, name);
             pt.Show(name + " saved");
+            changedSinceSave = false;
             Debug.Log("Level Saved!");
         }
     }
@@ -221,11 +223,13 @@ public class LevelEditor : MonoBehaviour
     public void Undo() {
         level = history.Back();
         lh.LoadLevel(level);
+        changedSinceSave = true;
     }
 
     public void Redo() {
         level = history.Forward();
         lh.LoadLevel(level);
+        changedSinceSave = true;
     }
 
     public void ClearAll() {
@@ -251,6 +255,7 @@ public class LevelEditor : MonoBehaviour
             level.launcherPosition = newPosition;
             FindObjectOfType<Launcher>().transform.position = newPosition;
             history.Add(level);
+            changedSinceSave = true;
         }
     }
 
@@ -298,6 +303,7 @@ public class LevelEditor : MonoBehaviour
             level.genString = replaced;
             lh.LoadLevel(level);
             history.Add(level);
+            changedSinceSave = true;
         }
     }
 
@@ -332,5 +338,44 @@ public class LevelEditor : MonoBehaviour
         y = Mathf.Clamp(y, 0.1f, 11.9f);
 
         return new Vector2(x, y);
+    }
+
+    public void TryNewLevel() {
+        if (changedSinceSave) {
+            StartCoroutine(NewLevelConfirmation());
+        }
+        else {
+            NewLevel();
+        }
+    }
+
+    private IEnumerator NewLevelConfirmation() {
+        string name = infieldLevelName.text;
+
+        Dialog_YesNoCancel dialog = FindObjectOfType<Dialog_YesNoCancel>();
+        dialog.Show("Would you like to save changes to level?");
+
+        while (dialog.result == Dialog_YesNoCancel.Result.None) {
+            yield return null; // wait
+        }
+
+        if (dialog.result == Dialog_YesNoCancel.Result.Yes) {
+            SaveLevel();
+            NewLevel();
+        }
+        else if (dialog.result == Dialog_YesNoCancel.Result.No) {
+            NewLevel();
+        }
+        else if (dialog.result == Dialog_YesNoCancel.Result.Cancel) {
+            // do nothing
+        }
+    }
+
+    private void NewLevel() {
+        level = LevelObject.DefaultLevel();
+        infieldLevelName.text = "";
+        infieldLevelText.text = "";
+        lh.LoadLevel(level);
+        //pt.Show("New level");
     }
 }
