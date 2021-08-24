@@ -60,6 +60,10 @@ public class LevelEditor : MonoBehaviour
         history = new LevelHistory();
         history.Add(level);
         
+        //Set UnsavedChanges bool
+        if (!sc.GetSceneBefore().Equals("Level")) {
+            sc.unsavedChangesInEditor = false;
+        }
     }
 
     void StandardiseGenString(LevelObject l) {
