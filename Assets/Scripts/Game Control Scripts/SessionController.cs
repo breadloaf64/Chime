@@ -59,6 +59,11 @@ public class SessionController : MonoBehaviour
     }
 
     public string GetSceneBefore() {
-        return string.Copy(sceneBefore);
+        if (sceneBefore != null) {
+            return string.Copy(sceneBefore);
+        }
+        else {
+            return "None";
+        }
     }
 }
