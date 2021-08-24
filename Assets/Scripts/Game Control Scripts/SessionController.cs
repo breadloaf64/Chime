@@ -43,7 +43,14 @@ public class SessionController : MonoBehaviour
 
     void LoadPreviousScene() {
         SceneLoader sl = FindObjectOfType<SceneLoader>();
-        sl.LoadPreviousScene();
+
+        if (sl.GetCurrentScene().Equals("LevelEditor")) {
+            // if the current scene is LevelEditor, we want to check first if the user wants to save changes
+            FindObjectOfType<LevelEditor>().TryLoadPreviousScene();
+        }
+        else {
+            sl.LoadPreviousScene();
+        }
     }
 
     public void SetSceneBefore(string scene) {

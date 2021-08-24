@@ -29,6 +29,5 @@ public class Dialog_Confirmation: MonoBehaviour
         messageText.text = message;
         result = Result.None;
         dialogCanvas.gameObject.SetActive(true);
-        Debug.Log("Start Dialog");
     }
 }
