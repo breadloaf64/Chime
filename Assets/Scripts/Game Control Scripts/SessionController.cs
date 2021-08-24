@@ -5,6 +5,7 @@ public class SessionController : MonoBehaviour
 {
     private LevelObject level = LevelObject.DefaultLevel();
     string sceneBefore; //name of previous scene (so that when you're in a level, you return to the scene by which you entered the level)
+    public bool unsavedChangesInEditor = false;
 
     // These are here to facilitate singleton. _instance privately holds the reference to the singleton instance
     private static SessionController _instance;

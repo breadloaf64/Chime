@@ -31,7 +31,6 @@ public class LevelEditor : MonoBehaviour
     Vector2 selectionPosition;
 
     //Dealing with saving and user dialog inputs
-    bool changedSinceSave = false;
     bool saveDialogOpen = false;
     bool saveSuccessful = false;
 
@@ -175,13 +174,13 @@ public class LevelEditor : MonoBehaviour
     public void Undo() {
         level = history.Back();
         lh.LoadLevel(level);
-        changedSinceSave = true;
+        sc.unsavedChangesInEditor = true;
     }
 
     public void Redo() {
         level = history.Forward();
         lh.LoadLevel(level);
-        changedSinceSave = true;
+        sc.unsavedChangesInEditor = true;
     }
 
     public void ClearAll() {
@@ -207,7 +206,7 @@ public class LevelEditor : MonoBehaviour
             level.launcherPosition = newPosition;
             FindObjectOfType<Launcher>().transform.position = newPosition;
             history.Add(level);
-            changedSinceSave = true;
+            sc.unsavedChangesInEditor = true;
         }
     }
 
@@ -255,7 +254,7 @@ public class LevelEditor : MonoBehaviour
             level.genString = replaced;
             lh.LoadLevel(level);
             history.Add(level);
-            changedSinceSave = true;
+            sc.unsavedChangesInEditor = true;
         }
     }
 
@@ -344,12 +343,12 @@ public class LevelEditor : MonoBehaviour
         string name = infieldLevelName.text;
         LevelSaveLoad.Save(level, name);
         pt.Show(name + " saved");
-        changedSinceSave = false;
+        sc.unsavedChangesInEditor = false;
         Debug.Log("Level Saved!");
     }
 
     public void TryNewLevel() {
-        if (changedSinceSave) {
+        if (sc.unsavedChangesInEditor) {
             StartCoroutine(DialogSaveChangesBeforeNewLevel());
         }
         else {
@@ -394,7 +393,7 @@ public class LevelEditor : MonoBehaviour
     }
 
     public void TryLoadPreviousScene() {
-        if (changedSinceSave) {
+        if (sc.unsavedChangesInEditor) {
             StartCoroutine(DialogSaveChangesBeforeLoadPreviousScene());
         }
         else {
