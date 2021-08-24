@@ -30,6 +30,10 @@ public class LevelEditor : MonoBehaviour
     char brushType = '1';
     Vector2 selectionPosition;
 
+    //Dealing with saving and user dialog inputs
+    bool saveDialogOpen = false;
+    bool saveSuccessful = false;
+
     private void Awake() {
         sc = SessionController.Instance;
         lh = FindObjectOfType<LevelHandler>();
@@ -42,18 +46,24 @@ public class LevelEditor : MonoBehaviour
     {
         if (sc != null) {
             level = sc.GetLevel();
-            infieldLevelName.text = level.name;
+            if (level.name != "defaultLevel") {
+                infieldLevelName.text = level.name;
+            }
             infieldLevelText.text = level.levelText;
         }
         else {
             level = LevelObject.DefaultLevel();
-            infieldLevelName.text = "DefaultLevel";
-            Debug.Log("LevelEditor: No sceneloader found. loading default level");
+            infieldLevelName.text = "";
+            Debug.Log("LevelEditor: No SessionController found. loading default level");
         }
         StandardiseGenString(level);
         history = new LevelHistory();
         history.Add(level);
         
+        //Set UnsavedChanges bool
+        if (!sc.GetSceneBefore().Equals("Level")) {
+            sc.unsavedChangesInEditor = false;
+        }
     }
 
     void StandardiseGenString(LevelObject l) {
@@ -165,65 +175,16 @@ public class LevelEditor : MonoBehaviour
         }
     }
 
-    public void TrySaveLevel() {
-
-        if (ValidateLevel()) {
-
-            if (LevelSaveLoad.LevelExists(infieldLevelName.text)) {
-                StartCoroutine(OverwriteLevelConfirmation());
-            }
-            else {
-                SaveLevel();
-            }
-
-        }
-    }
-
-    private bool ValidateLevel() {
-        return (level.name.Length > 0);
-    }
-
-    private IEnumerator OverwriteLevelConfirmation() {
-        string name = infieldLevelName.text;
-
-        Dialog_Confirmation dialog = FindObjectOfType<Dialog_Confirmation>();
-        dialog.Show("Are you sure you want to \n overwrite " + name + "?");
-        Debug.Log("Showing Dialog");
-
-        while (dialog.result == Dialog_Confirmation.Result.None) {
-            yield return null; // wait
-        }
-
-        if (dialog.result == Dialog_Confirmation.Result.Yes) {
-            SaveLevel();
-        }
-        else if (dialog.result == Dialog_Confirmation.Result.No) {
-            // do nothing
-        }
-    }
-
-    private void SaveLevel() {
-        string name = infieldLevelName.text;
-
-        if (name.Equals("")) {
-            pt.Show("Please name your level");
-            Debug.Log("LevelEditor | couldn't save level - has no name"); 
-        }
-        else {
-            LevelSaveLoad.Save(level, name);
-            pt.Show(name + " saved");
-            Debug.Log("Level Saved!");
-        }
-    }
-
     public void Undo() {
         level = history.Back();
         lh.LoadLevel(level);
+        sc.unsavedChangesInEditor = true;
     }
 
     public void Redo() {
         level = history.Forward();
         lh.LoadLevel(level);
+        sc.unsavedChangesInEditor = true;
     }
 
     public void ClearAll() {
@@ -249,6 +210,7 @@ public class LevelEditor : MonoBehaviour
             level.launcherPosition = newPosition;
             FindObjectOfType<Launcher>().transform.position = newPosition;
             history.Add(level);
+            sc.unsavedChangesInEditor = true;
         }
     }
 
@@ -296,6 +258,7 @@ public class LevelEditor : MonoBehaviour
             level.genString = replaced;
             lh.LoadLevel(level);
             history.Add(level);
+            sc.unsavedChangesInEditor = true;
         }
     }
 
@@ -330,5 +293,144 @@ public class LevelEditor : MonoBehaviour
         y = Mathf.Clamp(y, 0.1f, 11.9f);
 
         return new Vector2(x, y);
+    }
+
+    public void TrySaveLevel() {
+        saveSuccessful = false;
+        Debug.Log("saveSuccessful set to false");
+        if (ValidateLevel()) {
+
+            if (LevelSaveLoad.LevelExists(infieldLevelName.text)) {
+                saveDialogOpen = true;
+                StartCoroutine(OverwriteLevelConfirmation());
+            }
+            else {
+                SaveLevel();
+                saveSuccessful = true;
+            }
+
+        }
+    }
+
+    private bool ValidateLevel() {
+        if (infieldLevelName.text.Length < 1) {
+            pt.Show("Please name your level");
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
+    private IEnumerator OverwriteLevelConfirmation() {
+        string name = infieldLevelName.text;
+
+        Dialog_Confirmation dialog = FindObjectOfType<Dialog_Confirmation>();
+        dialog.Show("Are you sure you want to \n overwrite " + name + "?");
+        Debug.Log("Showing Dialog");
+
+        while (dialog.result == Dialog_Confirmation.Result.None) {
+            yield return null; // wait
+        }
+
+        if (dialog.result == Dialog_Confirmation.Result.Yes) {
+            SaveLevel();
+            saveSuccessful = true;
+        }
+        else if (dialog.result == Dialog_Confirmation.Result.No) {
+            // do nothing
+        }
+        saveDialogOpen = false;
+    }
+
+    private void SaveLevel() {
+        string name = infieldLevelName.text;
+        LevelSaveLoad.Save(level, name);
+        pt.Show(name + " saved");
+        sc.unsavedChangesInEditor = false;
+        Debug.Log("Level Saved!");
+    }
+
+    public void TryNewLevel() {
+        if (sc.unsavedChangesInEditor) {
+            StartCoroutine(DialogSaveChangesBeforeNewLevel());
+        }
+        else {
+            NewLevel();
+        }
+    }
+
+    private IEnumerator DialogSaveChangesBeforeNewLevel() {
+        string name = infieldLevelName.text;
+
+        Dialog_YesNoCancel dialog = FindObjectOfType<Dialog_YesNoCancel>();
+        dialog.Show("Would you like to save changes to\nlevel?");
+
+        while (dialog.result == Dialog_YesNoCancel.Result.None) {
+            yield return null; // wait
+        }
+
+        if (dialog.result == Dialog_YesNoCancel.Result.Yes) {
+            TrySaveLevel();
+            while (saveDialogOpen) {
+                yield return null;
+            }
+
+            if(saveSuccessful) {
+                // If it's not the case that (the user cancels the save, or hasn't named the level)
+                NewLevel();
+            }
+        }
+        else if (dialog.result == Dialog_YesNoCancel.Result.No) {
+            NewLevel();
+        }
+        else if (dialog.result == Dialog_YesNoCancel.Result.Cancel) {
+            // do nothing
+        }
+    }
+
+    private void NewLevel() {
+        level = LevelObject.DefaultLevel();
+        infieldLevelName.text = "";
+        infieldLevelText.text = "";
+        lh.LoadLevel(level);
+    }
+
+    public void TryLoadPreviousScene() {
+        if (sc.unsavedChangesInEditor) {
+            StartCoroutine(DialogSaveChangesBeforeLoadPreviousScene());
+        }
+        else {
+            sl.LoadPreviousScene();
+        }
+    }
+
+    private IEnumerator DialogSaveChangesBeforeLoadPreviousScene() {
+        string name = infieldLevelName.text;
+
+        Dialog_YesNoCancel dialog = FindObjectOfType<Dialog_YesNoCancel>();
+        dialog.Show("Would you like to save changes to\nlevel?");
+
+        while (dialog.result == Dialog_YesNoCancel.Result.None) {
+            yield return null; // wait
+        }
+
+        if (dialog.result == Dialog_YesNoCancel.Result.Yes) {
+            TrySaveLevel();
+            while (saveDialogOpen) {
+                yield return null;
+            }
+
+            if (saveSuccessful) {
+                // If it's not the case that (the user cancels the save, or hasn't named the level)
+                sl.LoadPreviousScene();
+            }
+        }
+        else if (dialog.result == Dialog_YesNoCancel.Result.No) {
+            sl.LoadPreviousScene();
+        }
+        else if (dialog.result == Dialog_YesNoCancel.Result.Cancel) {
+            // do nothing
+        }
     }
 }

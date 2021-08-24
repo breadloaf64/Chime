@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Dialog_Confirmation: MonoBehaviour
+public class Dialog_YesNoCancel : MonoBehaviour
 {
     [SerializeField] Canvas dialogCanvas;
     [SerializeField] TextMesh messageText;
@@ -12,15 +12,23 @@ public class Dialog_Confirmation: MonoBehaviour
     public enum Result {
         None,
         Yes,
-        No
+        No,
+        Cancel
     }
 
-    public void SetResult(bool yesSelected) {
-        if (yesSelected) {
-            result = Result.Yes;
-        }
-        else {
-            result = Result.No;
+    public void SetResult(int resultIndex) {
+        switch(resultIndex) {
+            case 1:
+                result = Result.Yes;
+                break;
+            case 2:
+                result = Result.No;
+                break;
+            case 3:
+                result = Result.Cancel;
+                break;
+            default:
+                return;
         }
         dialogCanvas.gameObject.SetActive(false);
     }
