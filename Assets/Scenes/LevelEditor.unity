@@ -180,6 +180,22 @@ PrefabInstance:
       propertyPath: m_Transition
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2501834744245703304, guid: 594edf9492cbe7148aecda599bbaf233, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2501834744245703304, guid: 594edf9492cbe7148aecda599bbaf233, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1671869722}
+    - target: {fileID: 2501834744245703304, guid: 594edf9492cbe7148aecda599bbaf233, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ChangeTab
+      objectReference: {fileID: 0}
+    - target: {fileID: 2501834744245703304, guid: 594edf9492cbe7148aecda599bbaf233, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PullDown, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 2501834744245703305, guid: 594edf9492cbe7148aecda599bbaf233, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -505,7 +521,7 @@ GameObject:
   m_Component:
   - component: {fileID: 267207945}
   m_Layer: 5
-  m_Name: BlockOptions
+  m_Name: Tab_BlockOptions
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -593,6 +609,26 @@ PrefabInstance:
     - target: {fileID: 2501834744245703304, guid: 594edf9492cbe7148aecda599bbaf233, type: 3}
       propertyPath: m_Transition
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2501834744245703304, guid: 594edf9492cbe7148aecda599bbaf233, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2501834744245703304, guid: 594edf9492cbe7148aecda599bbaf233, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1671869722}
+    - target: {fileID: 2501834744245703304, guid: 594edf9492cbe7148aecda599bbaf233, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ChangeTab
+      objectReference: {fileID: 0}
+    - target: {fileID: 2501834744245703304, guid: 594edf9492cbe7148aecda599bbaf233, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PullDown, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2501834744245703304, guid: 594edf9492cbe7148aecda599bbaf233, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2501834744245703305, guid: 594edf9492cbe7148aecda599bbaf233, type: 3}
       propertyPath: m_Sprite
@@ -1438,7 +1474,7 @@ GameObject:
   m_Component:
   - component: {fileID: 705271148}
   m_Layer: 5
-  m_Name: LevelOptions
+  m_Name: Tab_LevelOptions
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3430,6 +3466,9 @@ MonoBehaviour:
   state: 0
   animator: {fileID: 1671869721}
   toggleText: {fileID: 1611098952}
+  tabs:
+  - {fileID: 267207944}
+  - {fileID: 705271147}
 --- !u!224 &1672357770 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2501834744245703303, guid: 594edf9492cbe7148aecda599bbaf233, type: 3}
