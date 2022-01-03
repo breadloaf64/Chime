@@ -2,6 +2,7 @@
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using System.Collections;
+using System;
 
 public class LevelEditor : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class LevelEditor : MonoBehaviour
     [SerializeField] InputField infieldLevelName;
     [SerializeField] int maxLevelNameSize = 11;
     [SerializeField] InputField infieldLevelText;
+    [SerializeField] InputField infieldTargetBalls;
 
     //External references
     SessionController sc;
@@ -48,8 +50,10 @@ public class LevelEditor : MonoBehaviour
             level = sc.GetLevel();
             if (level.name != "defaultLevel") {
                 infieldLevelName.text = level.name;
+                infieldLevelText.text = level.levelText;
+                infieldTargetBalls.text = level.targetBalls.ToString();
             }
-            infieldLevelText.text = level.levelText;
+            
         }
         else {
             level = LevelObject.DefaultLevel();
@@ -239,6 +243,27 @@ public class LevelEditor : MonoBehaviour
         level.levelText = levelText;
     }
 
+    string EnforceIntegerText(string text) {
+        string txtOut = "";
+        foreach (char c in text) {
+            if ('0' <= c && c <= '9') {
+                txtOut += c;
+            }
+        }
+        return txtOut;
+    }
+
+    public void UpdateTargetBalls() {
+        infieldTargetBalls.text = EnforceIntegerText(infieldTargetBalls.text);
+        string txtTargetBalls = infieldTargetBalls.text;
+
+        int targetBalls = 0;
+        if (Int32.TryParse(txtTargetBalls, out int j)) {
+            targetBalls = j;
+        }
+        level.targetBalls = targetBalls;
+    }
+
     public void UpdateLevelName() {
         string name = infieldLevelName.text;
 
@@ -297,7 +322,7 @@ public class LevelEditor : MonoBehaviour
 
     public void TrySaveLevel() {
         saveSuccessful = false;
-        Debug.Log("saveSuccessful set to false");
+        //Debug.Log("saveSuccessful set to false");
         if (ValidateLevel()) {
 
             if (LevelSaveLoad.LevelExists(infieldLevelName.text)) {
