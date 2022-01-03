@@ -8,6 +8,7 @@ public class LevelObject {
     public string genString;
     public string levelText;
     public int themeIndex;
+    public int targetBalls;
 
     public static char[] validBlockCodes = { '1', '2', '3', 'U', '0', 'T', 't', 'G' }; //Mind this! THESE ARE HARDCODED, SO EDIT IT WHEN YOU CREATE A NEW BLOCK TYPE
 
@@ -17,7 +18,8 @@ public class LevelObject {
             launcherPosition = new Vector2(8f, 0.5f),
             genString = EmptyGenString(),
             levelText = "",
-            themeIndex = 0
+            themeIndex = 0,
+            targetBalls = 0
         };
     }
 
@@ -53,7 +55,8 @@ public class LevelObject {
             launcherPosition = new Vector2(this.launcherPosition.x, this.launcherPosition.y),
             genString = string.Copy(this.genString),
             levelText = this.levelText,
-            themeIndex = this.themeIndex
+            themeIndex = this.themeIndex,
+            targetBalls = this.targetBalls
         };
     }
 
