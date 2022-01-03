@@ -50,8 +50,10 @@ public class LevelEditor : MonoBehaviour
             level = sc.GetLevel();
             if (level.name != "defaultLevel") {
                 infieldLevelName.text = level.name;
+                infieldLevelText.text = level.levelText;
+                infieldTargetBalls.text = level.targetBalls.ToString();
             }
-            infieldLevelText.text = level.levelText;
+            
         }
         else {
             level = LevelObject.DefaultLevel();
@@ -256,7 +258,7 @@ public class LevelEditor : MonoBehaviour
         string txtTargetBalls = infieldTargetBalls.text;
 
         int targetBalls = 0;
-        if (Int32.TryParse("-105", out int j)) {
+        if (Int32.TryParse(txtTargetBalls, out int j)) {
             targetBalls = j;
         }
         level.targetBalls = targetBalls;
