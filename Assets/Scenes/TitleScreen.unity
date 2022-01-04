@@ -1623,6 +1623,10 @@ PrefabInstance:
       propertyPath: active
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3388220994613737006, guid: 1a6d1effd0bc1ef4e94c90130863bbc4, type: 3}
+      propertyPath: snapAmount
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 3388220994669644276, guid: 1a6d1effd0bc1ef4e94c90130863bbc4, type: 3}
       propertyPath: m_LocalRotation.x
       value: 0

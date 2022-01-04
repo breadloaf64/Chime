@@ -13,11 +13,10 @@ public class Launcher : MonoBehaviour
 
     //Launcher properties
     Vector2 dir;
-    bool snap;
+    bool snap = false;
     float angle;
-    [SerializeField] int snapAmount = 5;
+    [SerializeField] int snapAmount = 15;
     [SerializeField] bool active = true;
-
 
 
     private void Awake() {
@@ -31,6 +30,7 @@ public class Launcher : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.S)) { ToggleSnap(); }
 
             UpdateDirVector();
+            Debug.Log(angle);
             transform.eulerAngles = new Vector3(0, 0, angle); //rotate sprite
 
             if (Input.GetMouseButtonDown(0)) {
@@ -47,6 +47,7 @@ public class Launcher : MonoBehaviour
 
     void ToggleSnap() {
         snap = !snap;
+        Debug.Log(snap);
     }
 
     void UpdateDirVector() {
